@@ -32,11 +32,11 @@ public class BERJS {
         public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             RegistryInfo.ALL_BUILDERS.stream().filter(builder -> builder instanceof BlockEntityBuilder).forEach(builder -> {
                 BlockEntityBuilder blockEntityBuilder = (BlockEntityBuilder) builder;
-                BlockEntityType<?> type = blockEntityBuilder.get();
-                var renderContext = ((BlockEntityInfoBERJS) blockEntityBuilder).renderContext();
+                BlockEntityType<? extends BlockEntity> type = blockEntityBuilder.get();
+                var renderContext = ((BlockEntityInfoBERJS) blockEntityBuilder.info).berJS$renderContext();
                 if (renderContext != null) {
-                    CustomBlockEntityRenderer<?> ber = new CustomBlockEntityRenderer<>(renderContext);
-                    BlockEntityRendererProvider<?> provider = new CustomBlockEntityRendererProvider<>(ber);
+                    CustomBlockEntityRenderer<BlockEntity> ber = new CustomBlockEntityRenderer<>(renderContext);
+                    BlockEntityRendererProvider<BlockEntity> provider = new CustomBlockEntityRendererProvider<>(ber);
                     event.registerBlockEntityRenderer(type, provider);
                 }
             });

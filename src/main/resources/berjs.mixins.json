@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "BlockEntityInfoMixin"
+    "BlockEntityInfoMixin",
+    "BlockEntityJSMixin",
+    "BlockEntityMixin"
   ],
   "client": [],
   "minVersion": "0.8.5"

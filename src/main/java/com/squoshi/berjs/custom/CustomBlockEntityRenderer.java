@@ -8,15 +8,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.function.Consumer;
 
-public class CustomBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
-    private final Consumer<BERJS.BlockEntityRendererContext> renderCallback;
-
-    public CustomBlockEntityRenderer(Consumer<BERJS.BlockEntityRendererContext> renderCallback) {
-        this.renderCallback = renderCallback;
-    }
-
+public record CustomBlockEntityRenderer<T extends BlockEntity>(Consumer<BERJS.BlockEntityRendererContext> context) implements BlockEntityRenderer<T> {
     @Override
-    public void render(T t, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
-        renderCallback.accept(new BERJS.BlockEntityRendererContext(t, v, poseStack, multiBufferSource, i, i1));
+    public void render(T be, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
+        context.accept(new BERJS.BlockEntityRendererContext(be, v, poseStack, multiBufferSource, i, i1));
     }
 }

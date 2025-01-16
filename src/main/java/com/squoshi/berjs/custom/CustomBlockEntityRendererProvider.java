@@ -4,16 +4,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class CustomBlockEntityRendererProvider<T extends BlockEntity> implements BlockEntityRendererProvider<T> {
-    private final CustomBlockEntityRenderer<T> renderer;
-
-    public CustomBlockEntityRendererProvider(CustomBlockEntityRenderer<T> renderer) {
-        super();
-        this.renderer = renderer;
-    }
-
+public record CustomBlockEntityRendererProvider<T extends BlockEntity>(CustomBlockEntityRenderer renderer) implements BlockEntityRendererProvider<T> {
     @Override
-    public BlockEntityRenderer<T> create(BlockEntityRendererProvider.Context context) {
+    public BlockEntityRenderer<T> create(Context context) {
         return renderer;
     }
 }
