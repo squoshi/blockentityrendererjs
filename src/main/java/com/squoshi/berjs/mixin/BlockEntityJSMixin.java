@@ -18,17 +18,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = BlockEntityJS.class, remap = false)
-public class BlockEntityJSMixin implements BlockEntityJSBERJS {
+public abstract class BlockEntityJSMixin implements BlockEntityJSBERJS {
     @Shadow @Final public BlockEntityInfo info;
     @Unique
-    private CompoundTag berJS$localData;
+    public CompoundTag berJS$localData;
     @Unique
-    private CompoundTag berJS$serverData;
+    public CompoundTag berJS$serverData;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(BlockPos blockPos, BlockState blockState, BlockEntityInfo entityInfo, CallbackInfo ci) {
-        berJS$localData = ((BlockEntityInfoBERJS) info).berJS$getInitialLocalData();
-        berJS$serverData = ((BlockEntityInfoBERJS) info).berJS$getInitialLocalData();
+        berJS$localData = ((BlockEntityInfoBERJS) info).berJS$getInitialLocalData().copy();
+        berJS$serverData = ((BlockEntityInfoBERJS) info).berJS$getInitialLocalData().copy();
     }
 
     @Override
