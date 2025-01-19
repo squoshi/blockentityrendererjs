@@ -1,6 +1,6 @@
 package com.squoshi.berjs.mixin;
 
-import com.squoshi.berjs.BERJS;
+import com.squoshi.berjs.util.BlockEntityRendererContext;
 import com.squoshi.berjs.util.BlockEntityInfoBERJS;
 import dev.latvian.mods.kubejs.block.entity.BlockEntityInfo;
 import net.minecraft.nbt.CompoundTag;
@@ -12,12 +12,12 @@ import java.util.function.Consumer;
 @Mixin(value = BlockEntityInfo.class, remap = false)
 public class BlockEntityInfoMixin implements BlockEntityInfoBERJS {
     @Unique
-    private Consumer<BERJS.BlockEntityRendererContext> berJS$renderContext;
+    private Consumer<BlockEntityRendererContext> berJS$renderContext;
     @Unique
     public CompoundTag berJS$initialLocalData;
 
     @Override
-    public Consumer<BERJS.BlockEntityRendererContext> berJS$renderContext() {
+    public Consumer<BlockEntityRendererContext> berJS$renderContext() {
         return berJS$renderContext;
     }
 
@@ -32,7 +32,7 @@ public class BlockEntityInfoMixin implements BlockEntityInfoBERJS {
     }
 
     @Override
-    public void berJS$addRenderer(Consumer<BERJS.BlockEntityRendererContext> context) {
+    public void berJS$addRenderer(Consumer<BlockEntityRendererContext> context) {
         berJS$renderContext = context;
     }
 }
